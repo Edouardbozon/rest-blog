@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
@@ -26,22 +27,41 @@ class Tag
     private $name;
 
     /**
-     * @ManyToMany(targetEntity="Post", inversedBy="posts")
-     * @JoinTable(name="post_tags")
+     * @var \Doctrine\Common\Collections\Collection|Post[]
+     *
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="post_tags")
      */
     private $posts;
 
     public function __construct()
     {
+        $this->name  = "Test";
         $this->posts = new ArrayCollection();
     }
+
 
     /**
      * @param Post $post
      */
     public function addPost(Post $post)
     {
-        $this->posts[] = $post;
+        if ($this->posts->contains($post)) {
+            return;
+        }
+        $this->posts->add($post);
+        $post->addTag($this);
+    }
+
+    /**
+     * @param Post $post
+     */
+    public function removePost(Post $post)
+    {
+        if (!$this->posts->contains($post)) {
+            return;
+        }
+        $this->posts->removeElement($post);
+        $post->removeTag($this);
     }
 
     /**

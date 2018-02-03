@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @ApiResource
@@ -48,13 +47,25 @@ class Post
     private $updatedAt;
 
     /**
-     * @ManyToMany(targetEntity="Tag", mappedBy="tags")
+     * @var \Doctrine\Common\Collections\Collection|Tag[]
+     *
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="tag")
+     * @ORM\JoinTable(
+     *  name="post_tags",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="post_id", referencedColumnName="id")
+     *  }
+     * )
      */
     private $tags;
 
     function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->addTag(new Tag());
     }
 
     /**
@@ -62,8 +73,23 @@ class Post
      */
     public function addTag(Tag $tag)
     {
+        if ($this->tags->contains($tag)) {
+            return;
+        }
+        $this->tags->add($tag);
         $tag->addPost($this);
-        $this->tags[] = $tag;
+    }
+
+    /**
+     * @param Tag $tag
+     */
+    public function removeTag(Tag $tag)
+    {
+        if (!$this->tags->contains($tag)) {
+            return;
+        }
+        $this->tags->removeElement($tag);
+        $tag->removePost($this);
     }
 
     /**
@@ -112,5 +138,13 @@ class Post
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Tag[]|\Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }
