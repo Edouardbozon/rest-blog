@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -22,20 +24,20 @@ class Tag
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=256)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Post[]
-     *
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="post_tags")
      */
     private $posts;
 
-    public function __construct()
+    public function __construct(string $name)
     {
-        $this->name  = "Test";
+        $this->name  = $name;
         $this->posts = new ArrayCollection();
     }
 
@@ -43,7 +45,7 @@ class Tag
     /**
      * @param Post $post
      */
-    public function addPost(Post $post)
+    public function addPost(Post $post): void
     {
         if ($this->posts->contains($post)) {
             return;
@@ -55,7 +57,7 @@ class Tag
     /**
      * @param Post $post
      */
-    public function removePost(Post $post)
+    public function removePost(Post $post): void
     {
         if (!$this->posts->contains($post)) {
             return;
@@ -67,7 +69,7 @@ class Tag
     /**
      * @return mixed
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -75,7 +77,7 @@ class Tag
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }

@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Datetime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource
@@ -22,33 +27,40 @@ class Post
     private $id;
 
     /**
-     * @Column(type="string", length=100)
+     * @Column(type="string", length=250)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
-     * @Column(type="string", length=100)
+     * @Column(type="string", length=250)
      */
     private $subtitle;
 
     /**
      * @Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
     /**
      * @Column(type="datetime", options={"default": 0})
+     * @Assert\NotBlank()
      */
     private $createdAt;
 
     /**
      * @Column(type="datetime", options={"default": 0})
+     * @Assert\NotBlank()
      */
     private $updatedAt;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Tag[]
-     *
+
+     * @Groups({"tags"})
+     * @ApiSubresource
+
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="tag")
      * @ORM\JoinTable(
      *  name="post_tags",
@@ -65,13 +77,12 @@ class Post
     function __construct()
     {
         $this->tags = new ArrayCollection();
-        $this->addTag(new Tag());
     }
 
     /**
      * @param Tag $tag
      */
-    public function addTag(Tag $tag)
+    public function addTag(Tag $tag): void
     {
         if ($this->tags->contains($tag)) {
             return;
@@ -83,7 +94,7 @@ class Post
     /**
      * @param Tag $tag
      */
-    public function removeTag(Tag $tag)
+    public function removeTag(Tag $tag): void
     {
         if (!$this->tags->contains($tag)) {
             return;
@@ -95,7 +106,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -103,7 +114,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -111,7 +122,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getSubtitle()
+    public function getSubtitle(): string
     {
         return $this->subtitle;
     }
@@ -119,7 +130,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
@@ -127,7 +138,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): Datetime
     {
         return $this->createdAt;
     }
@@ -135,7 +146,7 @@ class Post
     /**
      * @return mixed
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): Datetime
     {
         return $this->updatedAt;
     }
@@ -143,7 +154,7 @@ class Post
     /**
      * @return Tag[]|\Doctrine\Common\Collections\Collection
      */
-    public function getTags()
+    public function getTags(): Collection
     {
         return $this->tags;
     }
