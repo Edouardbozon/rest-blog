@@ -1,7 +1,3 @@
 api_platform:
-    formats:
-        jsonhal:  ['application/hal+json']
-        jsonld:   ['application/ld+json']
-        json:     ['application/json']
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']

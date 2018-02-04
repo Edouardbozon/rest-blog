@@ -9,7 +9,6 @@
         "api-platform/api-pack": "^1.0",
         "api-platform/core": "^2.1",
         "doctrine/annotations": "^1.4",
-        "nelmio/cors-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^3.4",
         "symfony/console": "^3.4",
