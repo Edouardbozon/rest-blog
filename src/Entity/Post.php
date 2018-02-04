@@ -9,73 +9,77 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
 class Post
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @Groups({"read"})
      */
     private $id;
 
     /**
      * @Column(type="string", length=250)
+     * @Groups({"read", "write"})
      * @Assert\NotBlank()
      */
-    private $title;
+    public $title;
 
     /**
      * @Column(type="string", length=250)
+     * @Groups({"read", "write"})
      */
-    private $subtitle;
+    public $subtitle;
 
     /**
      * @Column(type="text")
+     * @Groups({"read", "write"})
      * @Assert\NotBlank()
      */
-    private $content;
+    public $content;
 
     /**
      * @Column(type="datetime", options={"default": 0})
+     * @Groups({"read", "write"})
      * @Assert\NotBlank()
      */
-    private $createdAt;
+    public $createdAt;
 
     /**
      * @Column(type="datetime", options={"default": 0})
+     * @Groups({"read", "write"})
      * @Assert\NotBlank()
      */
-    private $updatedAt;
+    public $updatedAt;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Tag[]
+     * @Groups({"read"})
      * @ApiSubresource
-     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="tag")
-     * @ORM\JoinTable(
-     *  name="post_tags",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     *  }
-     * )
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
+     * @JoinTable(name="post_tags")
      */
-    private $tags;
+    public $tags;
 
     /**
      * @Column(type="string", length=255)
+     * @Groups({"read", "write"})
      * @Assert\NotBlank()
      */
-    private $author;
+    public $author;
 
     /**
      * Post constructor.
@@ -163,5 +167,13 @@ class Post
     public function getAuthor(): string
     {
         return $this->author;
+    }
+
+    /**
+     * @return Tag[]|Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

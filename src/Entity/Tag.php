@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,13 +26,13 @@ class Tag
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
      */
-    private $name;
+    public $name;
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Post[]
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="post_tags")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
-    private $posts;
+    public $posts;
 
     public function __construct(string $name)
     {
@@ -80,5 +79,13 @@ class Tag
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Post[]|\Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }
