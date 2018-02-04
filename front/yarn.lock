@@ -96,7 +96,7 @@
   optionalDependencies:
     node-sass "^4.7.2"
 
-"@angular/common@^5.2.0":
+"@angular/common@^5.2.3":
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@angular/common/-/common-5.2.3.tgz#f2a5c12ec44b73a248d8dcb2d37ac2749f091cf7"
   dependencies:
@@ -123,7 +123,7 @@
   dependencies:
     tslib "^1.7.1"
 
-"@angular/forms@^5.2.0":
+"@angular/forms@^5.2.3":
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-5.2.3.tgz#4992419191a3800516085209be331fc0d63bd099"
   dependencies:
@@ -189,6 +189,10 @@
   resolved "https://registry.yarnpkg.com/@types/jasminewd2/-/jasminewd2-2.0.3.tgz#0d2886b0cbdae4c0eeba55e30792f584bf040a95"
   dependencies:
     "@types/jasmine" "*"
+
+"@types/marked@^0.0.27":
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/@types/marked/-/marked-0.0.27.tgz#c71445465f2280ee79edc83e2c3bdcd8edf53554"
 
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.96"
@@ -4173,6 +4177,17 @@ map-visit@^1.0.0:
   resolved "https://registry.yarnpkg.com/map-visit/-/map-visit-1.0.0.tgz#ecdca8f13144e660f1b5bd41f12f3479d98dfb8f"
   dependencies:
     object-visit "^1.0.0"
+
+markdown-to-html-pipe@^1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/markdown-to-html-pipe/-/markdown-to-html-pipe-1.2.4.tgz#518d3f7e1dd51973e7d1ba21bf3983008970b7b2"
+  dependencies:
+    "@types/marked" "^0.0.27"
+    marked "^0.x"
+
+marked@^0.x:
+  version "0.3.12"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.12.tgz#7cf25ff2252632f3fe2406bde258e94eee927519"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"

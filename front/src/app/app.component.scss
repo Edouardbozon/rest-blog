@@ -1,0 +1,52 @@
+.wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+
+  font-family: serif;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: sans-serif;
+  }
+
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+  }
+
+  .spacer {
+    margin: 10px 0;
+  }
+
+  .row {
+    clear: both;
+  }
+
+  .mk {
+    word-wrap: break-word;
+    pre {
+      background: #000;
+      color: #00d321;
+      margin: 0 -25px;
+      padding: 22px 25px;
+      font-family: monospace;
+    }
+  }
+
+  .selected {
+    background: #000;
+    color: #fff;
+  }
+
+  .col-2 {
+    &:last-child {
+      margin-left: 4%;
+    }
+    width: 48%;
+    float: left;
+  }
+}
