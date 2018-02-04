@@ -57,10 +57,7 @@ class Post
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Tag[]
-
-     * @Groups({"tags"})
      * @ApiSubresource
-
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="tag")
      * @ORM\JoinTable(
      *  name="post_tags",
@@ -74,6 +71,15 @@ class Post
      */
     private $tags;
 
+    /**
+     * @Column(type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $author;
+
+    /**
+     * Post constructor.
+     */
     function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -152,10 +158,10 @@ class Post
     }
 
     /**
-     * @return Tag[]|\Doctrine\Common\Collections\Collection
+     * @return string
      */
-    public function getTags(): Collection
+    public function getAuthor(): string
     {
-        return $this->tags;
+        return $this->author;
     }
 }
