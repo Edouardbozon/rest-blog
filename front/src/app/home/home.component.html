@@ -1,0 +1,8 @@
+<article *ngFor="let post of posts">
+  <a [routerLink]="post.id">{{ post.title }}
+    <small>{{ post.createdAt | date }}</small>
+    <small *ngFor="let tag of post.tags">
+      {{ tag.name }}
+    </small>
+  </a>
+</article>
