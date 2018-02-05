@@ -14,7 +14,6 @@ export interface HalCollection<T> {
 }
 
 export interface Post {
-  // id: string;
   title: string;
   subtitle: string;
   content: string;
@@ -26,7 +25,6 @@ export interface Post {
 
 export interface Tag {
   name: string;
-  // id: string;
 }
 
 @Component({
