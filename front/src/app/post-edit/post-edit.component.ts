@@ -1,16 +1,17 @@
-import { Post, Tag } from "../app.component";
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PostRepositoryService } from "../post-repository.service";
-import { ActivatedRoute } from "@angular/router";
+import { Post, Tag } from "../app.component";
 import { Subscription } from "rxjs/Subscription";
+import { PostRepositoryService } from "../post-repository.service";
 import { TagRepositoryService } from "../tag-repository.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: "eb-post",
-  templateUrl: "./post.component.html",
-  styleUrls: ["./post.component.scss"],
+  selector: "eb-post-edit",
+  templateUrl: "./post-edit.component.html",
+  styleUrls: ["./post-edit.component.scss"],
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostEditComponent implements OnInit, OnDestroy {
+  draft: Post;
   sub: Subscription;
   id: string;
   post: Post;
@@ -27,6 +28,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.id = params["id"];
       this.postRepository.get(this.id).subscribe(post => {
         this.post = post;
+        this.draft = post;
       });
       this.tagRepository.getCollection().subscribe(tags => {
         this.tags = tags;

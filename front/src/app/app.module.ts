@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from "./page-not-found/page-not-found.component
 
 import { TagRepositoryService } from "./tag-repository.service";
 import { PostRepositoryService } from "./post-repository.service";
+import { PostEditComponent } from "./post-edit/post-edit.component";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PostRepositoryService } from "./post-repository.service";
     HomeComponent,
     PostComponent,
     PageNotFoundComponent,
+    PostEditComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { PostRepositoryService } from "../post-repository.service";
 })
 export class HomeComponent implements OnInit {
   posts: Post[];
+  maxContentLength = 55;
 
   constructor(private postRepository: PostRepositoryService) {}
 

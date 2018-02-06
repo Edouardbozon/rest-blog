@@ -1,58 +1,63 @@
 .wrapper {
   max-width: 650px;
   margin: 0 auto;
-
+}
+body {
   font-family: serif;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5 {
-    font-family: sans-serif;
-  }
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: sans-serif;
+}
 
-  .title {
-    font-size: 34px;
-    font-weight: bold;
-    text-decoration: none;
-  }
+.title {
+  font-size: 34px;
+  font-weight: bold;
+  text-decoration: none;
+}
 
-  input,
-  textarea {
-    display: block;
-    width: 100%;
-  }
+input,
+textarea {
+  display: block;
+  width: 100%;
+}
 
-  .spacer {
-    margin: 10px 0;
-  }
+.pull-right {
+  float: right;
+}
 
-  .row {
-    clear: both;
-  }
+.spacer {
+  margin: 10px 0;
+}
 
-  .mk {
-    word-wrap: break-word;
-    pre {
-      background: #000;
-      color: #00d321;
-      margin: 0 -25px;
-      padding: 22px 25px;
-      font-family: monospace;
-    }
-  }
+.row {
+  clear: both;
+}
 
-  .selected {
+.mk {
+  word-wrap: break-word;
+  pre {
     background: #000;
-    color: #fff;
+    color: #00d321;
+    margin: 0 -25px;
+    padding: 22px 25px;
+    font-family: monospace;
   }
+}
 
-  .col-2 {
-    &:last-child {
-      margin-left: 4%;
-    }
-    width: 48%;
-    float: left;
+.selected {
+  background: #000;
+  color: #fff;
+}
+
+.col-2 {
+  &:last-child {
+    margin-left: 4%;
   }
+  width: 48%;
+  float: left;
 }

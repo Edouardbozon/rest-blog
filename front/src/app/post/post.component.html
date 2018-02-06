@@ -1,10 +1,9 @@
-<div>
+<div class="wrapper">
 
   <article *ngIf="post">
     <header>
-      <h2>{{ post?.title }}
-        <small>{{ post?.createdAt | date }}</small>
-      </h2>
+      <h2>{{ post?.title }}</h2>
+      <small>{{ post?.createdAt | date }}</small>
     </header>
     <section [innerHTML]="post?.content|MarkdownToHtml"
       class="mk">
@@ -15,59 +14,4 @@
       </small>
     </footer>
   </article>
-
-  <form novalidate
-    #form="ngForm">
-    <div class="spacer">
-      <label for="title">Title</label>
-      <input type="text"
-        name="title"
-        id="title"
-        required
-        [(ngModel)]="draft.title">
-    </div>
-
-    <div class="spacer">
-      <label for="subtitle">Subtitle</label>
-      <input type="text"
-        name="subtitle"
-        id="subtitle"
-        required
-        [(ngModel)]="draft.subtitle">
-    </div>
-
-    <div class="row">
-      <div class="spacer col-2">
-        <label for="content">Content (markdown)</label>
-        <textarea name="content"
-          id="content"
-          required
-          [(ngModel)]="draft.content">
-          </textarea>
-
-        <div class="spacer"
-          *ngIf="tags">
-          <span *ngFor="let tag of tags"
-            [class.selected]="hasTag(tag, draft)"
-            (click)="toggleTag(tag, draft)">
-            #{{ tag.name }}
-          </span>
-        </div>
-      </div>
-
-      <div class="col-2">
-        <div [innerHTML]="draft.content|MarkdownToHtml"
-          class="mk">
-        </div>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <button type="button">
-        create
-      </button>
-    </div>
-  </form>
-
 </div>

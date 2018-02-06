@@ -1,8 +1,19 @@
-<article *ngFor="let post of posts">
-  <a [routerLink]="post.id">{{ post.title }}
-    <small>{{ post.createdAt | date }}</small>
-    <small *ngFor="let tag of post.tags">
-      {{ tag.name }}
-    </small>
-  </a>
-</article>
+<div class="wrapper">
+  <section>
+    <article *ngFor="let post of posts">
+      <a class="title"
+        [routerLink]="post.id">
+        {{ post.title }}
+      </a>
+      <span>
+        {{ (post.content.length > maxContentLength)? (post.content | slice:0:maxContentLength)+'...':(post.content) }}
+      </span>
+      <small>{{ post.createdAt | date }}</small>
+      <small *ngFor="let tag of post.tags">
+        {{ tag.name }}
+      </small>
+    </article>
+
+  </section>
+
+</div>

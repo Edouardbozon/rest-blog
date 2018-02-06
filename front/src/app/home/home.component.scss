@@ -1,1 +1,9 @@
-
+article {
+  margin-top: 10px;
+  .title {
+    font-size: 24px;
+  }
+  a {
+    display: inline;
+  }
+}
