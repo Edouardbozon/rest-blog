@@ -1,5 +1,7 @@
 <form novalidate
-  #form="ngForm">
+  #form="ngForm"
+  *ngIf="draft"
+  (submit)="edit($event)">
   <div class="row">
     <div class="spacer col-2">
       <div class="spacer">
@@ -35,6 +37,10 @@
           #{{ tag.name }}
         </span>
       </div>
+
+      <button type="submit">
+        Edit
+      </button>
     </div>
 
     <div class="col-2">
@@ -42,12 +48,5 @@
         class="mk wrapper">
       </div>
     </div>
-  </div>
-
-
-  <div class="row">
-    <button type="button">
-      create
-    </button>
   </div>
 </form>

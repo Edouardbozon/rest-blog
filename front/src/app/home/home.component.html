@@ -12,6 +12,7 @@
       <small *ngFor="let tag of post.tags">
         {{ tag.name }}
       </small>
+      <a routerLink="{{ post.id + '/edit' }}">[edit]</a>
     </article>
 
   </section>
